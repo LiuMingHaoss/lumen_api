@@ -14,3 +14,16 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+
+$router->get('/test','TestController@test');
+$router->post('/decaesar','TestController@decaesar');
+
+//验证签名
+$router->post('/signTest','TestController@signTest');
+
+//测试 注册
+$router->post('/reg','TestController@reg');
+$router->post('/login','TestController@login');
+
+

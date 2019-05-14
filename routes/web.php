@@ -26,4 +26,7 @@ $router->post('/signTest','TestController@signTest');
 $router->post('/reg','TestController@reg');
 $router->post('/login','TestController@login');
 
+$router->get('/test/b','TestController@b');
+
+
 

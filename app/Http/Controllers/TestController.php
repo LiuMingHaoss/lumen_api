@@ -124,4 +124,9 @@ class TestController extends BaseController
             die(json_encode($response,JSON_UNESCAPED_UNICODE));
         }
     }
+
+    public function b(){
+//        header('Access-Control-Allow-Origin:http://client.1809a.com');
+        echo 'alert("aaa")';
+    }
 }

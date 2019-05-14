@@ -29,4 +29,8 @@ $router->post('/login','TestController@login');
 $router->get('/test/b','TestController@b');
 
 
+//注册接口
+$router->post('/user/reg','UserController@reg');
+
+
 

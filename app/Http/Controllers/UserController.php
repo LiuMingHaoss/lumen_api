@@ -13,6 +13,34 @@ class UserController extends BaseController
    public function reg(Request $request){
        header('Access-Control-Allow-Origin:*');
        $data=$request->input();
-        var_dump($data);
+       $email=DB::table('api_user')->where('email',$data['email'])->first();
+       if($email){
+           $response=[
+               'errno'=>50001,
+               'msg'=>'邮箱已注册',
+           ];
+           die(json_encode($response,JSON_UNESCAPED_UNICODE));
+       }
+       $info=[
+           'username'=>$data['username'],
+           'email'=>$data['email'],
+           'pwd'=>$data['pwd']
+       ];
+       $res=DB::table('api_user')->insert($info);
+       if($res){
+           $response=[
+               'errno'=>0,
+               'msg'=>'注册成功',
+           ];
+           die(json_encode($response,JSON_UNESCAPED_UNICODE));
+
+       }else{
+           $response=[
+               'errno'=>40001,
+               'msg'=>'注册失败',
+           ];
+           die(json_encode($response,JSON_UNESCAPED_UNICODE));
+
+       }
    }
 }

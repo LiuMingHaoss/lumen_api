@@ -51,17 +51,17 @@ class UserController extends BaseController
        if($arr){
            if($arr->pwd===$data['pwd']){
 
-//               $key='token:uid:'.$arr->id;
-//               $token=Redis::get($key);
-//               if(!$token){
-//                   $token=Str::random(8);
-//                   Redis::set($key,$token);
-//                   Redis::expire($key,604800);
-//               }
+               $key='token:uid:'.$arr->id;
+               $token=Redis::get($key);
+               if(!$token){
+                   $token=Str::random(8);
+                   Redis::set($key,$token);
+                   Redis::expire($key,604800);
+               }
                $response=[
                    'errno'=>0,
                    'msg'=>'登录成功',
-//                   'token'=>$token,
+                   'token'=>$token,
 
                ];
                die(json_encode($response,JSON_UNESCAPED_UNICODE));

@@ -43,4 +43,41 @@ class UserController extends BaseController
 
        }
    }
+
+   public function login(Request $request){
+       header('Access-Control-Allow-Origin:*');
+       $data=$request->input();
+       $arr=DB::table('api_user')->where('email',$data['email'])->first();
+       if($arr){
+           if($arr['pwd']===$data['pwd']){
+
+//               $key='token:uid:'.$arr->id;
+//               $token=Redis::get($key);
+//               if(!$token){
+//                   $token=Str::random(8);
+//                   Redis::set($key,$token);
+//                   Redis::expire($key,604800);
+//               }
+               $response=[
+                   'errno'=>0,
+                   'msg'=>'登录成功',
+//                   'token'=>$token,
+
+               ];
+               die(json_encode($response,JSON_UNESCAPED_UNICODE));
+           }else{
+               $response=[
+                   'errno'=>50003,
+                   'msg'=>'密码错误',
+               ];
+               die(json_encode($response,JSON_UNESCAPED_UNICODE));
+           }
+       }else{
+           $response=[
+               'errno'=>50002,
+               'msg'=>'邮箱不存在',
+           ];
+           die(json_encode($response,JSON_UNESCAPED_UNICODE));
+       }
+   }
 }

@@ -31,6 +31,8 @@ $router->get('/test/b','TestController@b');
 
 //注册接口
 $router->post('/user/reg','UserController@reg');
+$router->post('/user/login','UserController@login');
+
 
 
 

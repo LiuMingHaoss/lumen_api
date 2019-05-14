@@ -49,7 +49,7 @@ class UserController extends BaseController
        $data=$request->input();
        $arr=DB::table('api_user')->where('email',$data['email'])->first();
        if($arr){
-           if($arr['pwd']===$data['pwd']){
+           if($arr->pwd===$data['pwd']){
 
 //               $key='token:uid:'.$arr->id;
 //               $token=Redis::get($key);

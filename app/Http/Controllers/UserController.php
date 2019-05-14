@@ -62,7 +62,7 @@ class UserController extends BaseController
                    'errno'=>0,
                    'msg'=>'登录成功',
                    'token'=>$token,
-
+                    'uid'=>$arr->id
                ];
                die(json_encode($response,JSON_UNESCAPED_UNICODE));
            }else{

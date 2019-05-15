@@ -17,6 +17,8 @@ class UserController extends BaseController
        $data=$request->input();
        $json_str=json_encode($data);
        $url='http://passport.1809a.com/user/reg';
+//       $url='http://passport.chenyys.com/user/reg';
+
        $ch=curl_init();
        curl_setopt($ch,CURLOPT_URL,$url);
        curl_setopt($ch,CURLOPT_POST,1);
@@ -34,6 +36,7 @@ class UserController extends BaseController
        $data=$request->input();
        $json_str=json_encode($data);
        $url='http://passport.1809a.com/user/login';
+//       $url='http://passport.chenyys.com/user/login';
        $ch=curl_init();
        curl_setopt($ch,CURLOPT_URL,$url);
        curl_setopt($ch,CURLOPT_POST,1);

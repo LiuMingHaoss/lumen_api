@@ -11,73 +11,46 @@ class UserController extends BaseController
 {
     //
    public function reg(Request $request){
-       header('Access-Control-Allow-Origin:*');
+//       header('Access-Control-Allow-Origin:*');
+
+       //接收登录数据
        $data=$request->input();
-       $email=DB::table('api_user')->where('email',$data['email'])->first();
-       if($email){
-           $response=[
-               'errno'=>50001,
-               'msg'=>'邮箱已注册',
-           ];
-           die(json_encode($response,JSON_UNESCAPED_UNICODE));
-       }
-       $info=[
-           'username'=>$data['username'],
-           'email'=>$data['email'],
-           'pwd'=>$data['pwd']
-       ];
-       $res=DB::table('api_user')->insert($info);
-       if($res){
-           $response=[
-               'errno'=>0,
-               'msg'=>'注册成功',
-           ];
-           die(json_encode($response,JSON_UNESCAPED_UNICODE));
+       $json_str=json_encode($data);
+       $url='http://passport.1809a.com/user/reg';
+       $ch=curl_init();
+       curl_setopt($ch,CURLOPT_URL,$url);
+       curl_setopt($ch,CURLOPT_POST,1);
+       curl_setopt($ch,CURLOPT_POSTFIELDS,$json_str);
+       curl_setopt($ch,CURLOPT_HTTPHEADER,['Content-type:text/plain']);
+       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);    //获取页面内容 不直接输出
+       $a=curl_exec($ch);
+       curl_errno($ch);
+       echo $a;
+       curl_close($ch);
 
-       }else{
-           $response=[
-               'errno'=>40001,
-               'msg'=>'注册失败',
-           ];
-           die(json_encode($response,JSON_UNESCAPED_UNICODE));
-
-       }
    }
 
    public function login(Request $request){
-       header('Access-Control-Allow-Origin:*');
        $data=$request->input();
-       $arr=DB::table('api_user')->where('email',$data['email'])->first();
-       if($arr){
-           if($arr->pwd===$data['pwd']){
+       $json_str=json_encode($data);
+       $url='http://passport.1809a.com/user/login';
+       $ch=curl_init();
+       curl_setopt($ch,CURLOPT_URL,$url);
+       curl_setopt($ch,CURLOPT_POST,1);
+       curl_setopt($ch,CURLOPT_POSTFIELDS,$json_str);
+       curl_setopt($ch,CURLOPT_HTTPHEADER,['Content-type:text/plain']);
+       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);    //获取页面内容 不直接输出
+       $a=curl_exec($ch);
+       curl_errno($ch);
+       echo $a;
+       curl_close($ch);
+   }
 
-               $key='token:uid:'.$arr->id;
-               $token=Redis::get($key);
-               if(!$token){
-                   $token=Str::random(8);
-                   Redis::set($key,$token);
-                   Redis::expire($key,604800);
-               }
-               $response=[
-                   'errno'=>0,
-                   'msg'=>'登录成功',
-                   'token'=>$token,
-                    'uid'=>$arr->id
-               ];
-               die(json_encode($response,JSON_UNESCAPED_UNICODE));
-           }else{
-               $response=[
-                   'errno'=>50003,
-                   'msg'=>'密码错误',
-               ];
-               die(json_encode($response,JSON_UNESCAPED_UNICODE));
-           }
-       }else{
-           $response=[
-               'errno'=>50002,
-               'msg'=>'邮箱不存在',
-           ];
-           die(json_encode($response,JSON_UNESCAPED_UNICODE));
-       }
+   public function my(){
+//       header('Access-Control-Allow-Origin:*');
+       $uid=$_GET['uid'];
+       $userInfo=DB::table('api_user')->where('id',$uid)->first();
+       $json_arr=json_encode($userInfo);
+       echo $json_arr;
    }
 }

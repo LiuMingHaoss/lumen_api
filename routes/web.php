@@ -33,6 +33,13 @@ $router->get('/test/b','TestController@b');
 $router->post('/user/reg','UserController@reg');
 $router->post('/user/login','UserController@login');
 
+$router->get('/user/my',[
+    'as'=>'profile',
+    'uses'=>'UserController@my',
+    'middleware'=>'CheckLogin'
+]);
+
+
 
 
 

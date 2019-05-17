@@ -39,6 +39,20 @@ $router->get('/user/my',[
     'middleware'=>'CheckLogin'
 ]);
 
+//商品信息
+$router->get('/goods/goodsList','GoodsController@goodsList');
+$router->get('/goods/goodsDesc','GoodsController@goodsDesc');   //商品详情
+$router->post('/goods/goodsCart','GoodsController@goodsCart');  //添加购物车
+$router->get('/goods/cartList','GoodsController@cartList');     //购物车列表
+$router->get('/goods/orderAdd','GoodsController@orderAdd');     //添加订单
+$router->get('/goods/orderList','GoodsController@orderList');   //订单列表
+
+
+
+
+
+
+
 
 
 

@@ -49,6 +49,15 @@ $router->get('/goods/orderList','GoodsController@orderList');   //订单列表
 
 
 
+$router->get('/alipay/pay','pay\PayController@pay');   //支付
+$router->post('/alipay/notify','pay\PayController@notify');   //异步回调
+$router->get('/alipay/return','pay\PayController@aliReturn');   //同步回调
+$router->get('/alipay/test','pay\PayController@test');   //同步回调
+
+
+
+
+
 
 
 

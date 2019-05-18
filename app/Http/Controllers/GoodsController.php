@@ -101,4 +101,7 @@ class GoodsController extends BaseController
         $orderInfo=DB::table('api_order')->get();
         return json_encode($orderInfo,JSON_UNESCAPED_UNICODE);
     }
+
+
+
 }

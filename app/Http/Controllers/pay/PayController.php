@@ -23,7 +23,7 @@ class PayController extends BaseController
         $this->notify_url = 'http://lmhapi.chenyys.com/alipay/notify';
         $this->return_url = 'http://lmhapi.chenyys.com/alipay/return';
         $this->rsaPrivateKeyFilePath = storage_path('app/openssl/private_key.pem');    //应用私钥
-        $this->aliPubKey = storage_path('app/keys/alipay/ali_pub.key'); //支付宝公钥
+        $this->aliPubKey = storage_path('app/openssl/ali_pub.key'); //支付宝公钥
     }
 
     /**

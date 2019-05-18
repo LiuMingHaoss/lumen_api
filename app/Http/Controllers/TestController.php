@@ -35,7 +35,7 @@ class TestController extends BaseController
 
     //验证签名
     public function signTest(){
-        echo 111;die;
+
         $ba64=$_GET['sign'];
         $json_str=file_get_contents('php://input');
         echo '数据：'.$json_str;echo '<hr>';

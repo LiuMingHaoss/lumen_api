@@ -52,7 +52,7 @@ class PayController extends BaseController
         //业务参数
         $bizcont = [
             'subject'           => 'Lening-Order: ' .$oid,
-            'out_trade_no'      => $oid,
+            'out_trade_no'      => $order_info['order_no'],
             'total_amount'      => $order_info['order_amount'] ,
             'product_code'      => 'QUICK_WAP_WAY',
         ];
@@ -164,11 +164,13 @@ class PayController extends BaseController
     public function notify()
     {
         $p = json_encode($_POST);
+        $data=json_decode($p,true);
         $log_str = "\n>>>>>> " .date('Y-m-d H:i:s') . ' '.$p . " \n";
         file_put_contents('logs/alipay_notify',$log_str,FILE_APPEND);
         echo 'success';
-
         //TODO 验签 更新订单状态
+        $pay_time = strtotime($data['gmt_payment']);
+        DB::table('api_order')->where('order_no',$data['out_trade_no'])->update(['pay_time'=>$pay_time]);
     }
 
     /**
